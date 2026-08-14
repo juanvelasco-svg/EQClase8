@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elementos de Química | Clase 8: Reacciones químicas y velocidad</title>
+    <style>
+        /* ===== VARIABLES Y RESET (idénticas al original) ===== */
+        :root {
+            --eq-gold: #E8B800;
+            --eq-dark: #0B2A3A;
+            --eq-blue: #1A4A5A;
+            --eq-light: #2A6A7A;
+            --accent: #E94560;
+            --text: #1e3c4a;
+            --white: #ffffff;
+            --sand: #f4e9c1;
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f0f2 0%, #c8d8dc 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, var(--eq-dark) 0%, var(--eq-light) 100%);
+            color: var(--white);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 6px 20px var(--shadow);
+            border-bottom: 5px solid var(--eq-gold);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+        .logo-EQ {
+            width: 120px;
+            height: auto;
+            background: var(--white);
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.2rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            color: var(--eq-gold);
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        /* ===== NAV ===== */
+        .nav-container {
+            background: var(--eq-dark);
+            padding: 0.8rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .nav-btn {
+            background: var(--white);
+            color: var(--eq-dark);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            font-size: 0.95rem;
+        }
+        .nav-btn:hover,
+        .nav-btn.active {
+            background: var(--eq-gold);
+            color: var(--eq-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* ===== CONTENEDOR ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 24px var(--shadow);
+            border-left: 6px solid var(--eq-gold);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        h2 {
+            color: var(--eq-blue);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 3px solid var(--eq-gold);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 2rem;
+        }
+        h3 {
+            color: var(--eq-light);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* ===== CAJAS DE INFORMACIÓN ===== */
+        .info-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid #2196f3;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .tip-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            border-left: 5px solid #ffc107;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .bio-box {
+            background: linear-gradient(135deg, #d1ecf1 0%, #a8dadc 100%);
+            border-left: 5px solid #17a2b8;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .pharma-box {
+            background: linear-gradient(135deg, #f8d7da 0%, #f1aeb5 100%);
+            border-left: 5px solid #dc3545;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .problem-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 5px solid #28a745;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* ===== TABLAS ===== */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            min-width: 500px;
+        }
+        th {
+            background: linear-gradient(135deg, var(--eq-blue), var(--eq-light));
+            color: var(--white);
+            padding: 1rem 1.2rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 0.9rem 1.2rem;
+            border-bottom: 1px solid #eee;
+        }
+        tr:hover td {
+            background: #f8fff0;
+        }
+
+        /* ===== PESTAÑAS INTERNAS ===== */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .tab {
+            background: var(--sand);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            background: var(--eq-gold);
+            color: var(--eq-dark);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* ===== CALCULADORAS ===== */
+        .calculator {
+            background: linear-gradient(135deg, #fff9f5 0%, #fff0e8 100%);
+            border: 3px solid var(--eq-gold);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .calc-title {
+            color: var(--eq-blue);
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .calc-input-group {
+            margin: 1rem 0;
+        }
+        .calc-input-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+        }
+        .calc-input-group input,
+        .calc-input-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--sand);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .calc-input-group input:focus,
+        .calc-input-group select:focus {
+            outline: none;
+            border-color: var(--eq-gold);
+        }
+        .calc-button {
+            background: var(--eq-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        .calc-button:hover {
+            background: var(--eq-gold);
+            color: var(--eq-dark);
+            transform: translateY(-2px);
+        }
+        .calc-result {
+            background: var(--white);
+            border-left: 5px solid var(--accent);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            display: none;
+        }
+        .calc-result.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== FLASHCARDS ===== */
+        .fc-stats {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .fc-stat {
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 700;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+        .fc-stat.good {
+            background: #28a745;
+        }
+        .fc-stat.bad {
+            background: #dc3545;
+        }
+        .fc-stat.pending {
+            background: #6c757d;
+        }
+        .fc-stat.total {
+            background: var(--eq-light);
+        }
+        .fc-progress {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            max-width: 720px;
+            margin: 0 auto 1.5rem;
+        }
+        .fc-progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--eq-gold), var(--accent));
+            transition: width 0.4s;
+        }
+        .flashcard-scene {
+            perspective: 1400px;
+            max-width: 720px;
+            height: 320px;
+            margin: 0 auto 1.5rem;
+        }
+        .flashcard {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        .fc-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: auto;
+            box-shadow: 0 8px 24px var(--shadow);
+            font-size: 1.15rem;
+        }
+        .fc-front {
+            background: linear-gradient(135deg, var(--eq-blue), var(--eq-light));
+            color: #fff;
+            border: 3px solid var(--eq-gold);
+        }
+        .fc-back {
+            background: linear-gradient(135deg, #fff9e6, var(--sand));
+            color: var(--text);
+            border: 3px solid var(--eq-gold);
+            transform: rotateY(180deg);
+        }
+        .fc-label {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            font-weight: 800;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        .fc-hint {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            font-style: italic;
+        }
+        .fc-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .fc-btn {
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #fff;
+        }
+        .fc-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .fc-btn.good {
+            background: #28a745;
+        }
+        .fc-btn.bad {
+            background: #dc3545;
+        }
+        .fc-btn:not(:disabled):hover {
+            transform: translateY(-3px);
+        }
+        .fc-link {
+            background: none;
+            border: none;
+            color: #6c757d;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        /* ===== MAPA CONCEPTUAL ===== */
+        .map-container {
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+        .map-tree,
+        .map-tree ul {
+            list-style: none;
+        }
+        .map-tree ul {
+            display: none;
+            padding-left: 1.6rem;
+            margin-top: 0.6rem;
+            border-left: 3px solid var(--eq-gold);
+        }
+        .map-tree li.open>ul {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        .map-tree li {
+            margin: 0.4rem 0;
+        }
+        .map-node {
+            display: inline-block;
+            background: var(--eq-blue);
+            color: #fff;
+            padding: 0.6rem 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .map-node:hover {
+            background: var(--eq-gold);
+            color: var(--eq-dark);
+            transform: translateX(4px);
+        }
+        .map-node.root {
+            background: var(--accent);
+            font-size: 1.15rem;
+        }
+        .map-node.branch {
+            background: var(--eq-light);
+        }
+        .map-leaf {
+            display: inline-block;
+            background: var(--sand);
+            color: var(--text);
+            padding: 0.45rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            border: 2px solid var(--eq-gold);
+        }
+        li.has-children>.map-node::before {
+            content: '▶ ';
+            font-size: 0.8em;
+        }
+        li.has-children.open>.map-node::before {
+            content: '▼ ';
+            font-size: 0.8em;
+        }
+
+        /* ===== GLOSARIO ===== */
+        .glossary-term {
+            background: var(--white);
+            border: 2px solid var(--eq-gold);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.8rem 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .glossary-term:hover {
+            background: #fff9e6;
+            transform: translateX(5px);
+        }
+        .glossary-definition {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--eq-gold);
+        }
+        .glossary-definition.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* ===== ERRORES ===== */
+        .error-card {
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffb3b3 100%);
+            border-left: 5px solid #dc3545;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .error-title {
+            color: #dc3545;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .correction {
+            background: #d4edda;
+            border-left: 3px solid #28a745;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* ===== QUIZ ===== */
+        .quiz-container {
+            background: linear-gradient(135deg, var(--eq-blue) 0%, var(--eq-light) 100%);
+            color: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .quiz-question {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        .quiz-option {
+            background: var(--white);
+            color: var(--text);
+            border: 3px solid transparent;
+            padding: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .quiz-option:hover {
+            border-color: var(--eq-gold);
+            transform: translateY(-3px);
+        }
+        .quiz-option.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #2e7d32;
+        }
+        .quiz-option.incorrect {
+            background: #f44336;
+            color: white;
+            border-color: #c62828;
+        }
+        .quiz-option:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .quiz-feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+        .quiz-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        .quiz-progress span {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--eq-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            margin-top: 3rem;
+            border-top: 5px solid var(--eq-gold);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            h3 {
+                font-size: 1.2rem;
+            }
+            .logo-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .logo-EQ {
+                width: 80px;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .nav-buttons {
+                gap: 0.4rem;
+            }
+            .nav-btn {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.8rem;
+            }
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            .tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 0.5rem;
+            }
+            .tab {
+                flex-shrink: 0;
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            .flashcard-scene {
+                height: 360px;
+            }
+            .fc-face {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+            .fc-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            .fc-btn {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4rem;
+            }
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            header {
+                padding: 1rem;
+            }
+            .card {
+                padding: 1rem;
+            }
+            .nav-btn {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.75rem;
+            }
+        }
+        /* ===== IMÁGENES ===== */
+        .img-container {
+            text-align: center;
+            margin: 1.8rem 0;
+        }
+        .img-container img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        .card ul,
+        .info-box ul,
+        .bio-box ul,
+        .pharma-box ul {
+            padding-left: 1.8rem;
+            margin: 0.6rem 0;
+        }
+        .card ul ul,
+        .info-box ul ul {
+            padding-left: 2.2rem;
+            margin-top: 0.2rem;
+            margin-bottom: 0.4rem;
+            list-style-type: circle;
+        }
+        .card li,
+        .info-box li {
+            margin-bottom: 0.6rem;
+            line-height: 1.6;
+        }
+        .card li strong,
+        .info-box li strong {
+            display: inline-block;
+            margin-right: 0.3rem;
+        }
+        .img-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .img-grid figure {
+            max-width: 200px;
+            text-align: center;
+            background: var(--white);
+            padding: 0.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        .img-grid figure img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .img-grid figcaption {
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="Logo-EQ.png" alt="Logo eq" class="logo-EQ" />
+            <div>
+                <h1>Elementos de Química</h1>
+                <p class="subtitle">Comprender la materia - Cuidar la vida</p>
+                <p class="subtitle">Clase 8: Reacciones químicas y velocidad de reacción</p>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-container">
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showSection('inicio',this)">🏠 Inicio</button>
+            <button class="nav-btn" onclick="showSection('conceptos',this)">📚 Conceptos</button>
+            <button class="nav-btn" onclick="showSection('mapa',this)">🗺️ Mapa</button>
+            <button class="nav-btn" onclick="showSection('flashcards',this)">🃏 Flashcards</button>
+            <button class="nav-btn" onclick="showSection('herramientas',this)">🧮 Herramientas</button>
+            <button class="nav-btn" onclick="showSection('aplicaciones',this)">🏥 Aplicaciones</button>
+            <button class="nav-btn" onclick="showSection('mnemotecnias',this)">🧠 Nemotecnias</button>
+            <button class="nav-btn" onclick="showSection('glosario',this)">📖 Glosario</button>
+            <button class="nav-btn" onclick="showSection('errores',this)">⚠️ Errores</button>
+            <button class="nav-btn" onclick="showSection('bibliografia',this)">📚 Bibliografía</button>
+            <button class="nav-btn" onclick="showSection('quiz',this)">🎯 Quiz</button>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- ==================== INICIO ==================== -->
+        <section id="inicio" class="section active">
+            <div class="card">
+                <h2>🎯 Objetivos de la Clase 8</h2>
+                <div class="info-box">
+                    <ul style="font-size:1.1rem; line-height:2;">
+                        <li>✓ Explicar en qué consiste una reacción química y sus condiciones (colisiones, energía de activación, orientación).</li>
+                        <li>✓ Escribir y balancear ecuaciones químicas por el método del tanteo.</li>
+                        <li>✓ Comprender el concepto de velocidad de reacción y los factores que la afectan: concentración, temperatura, catalizadores, etc.</li>
+                        <li>✓ Relacionar las reacciones químicas con procesos clave en el cuerpo humano y en la práctica clínica.</li>
+                    </ul>
+                </div>
+                <h3>🩺 Relevancia para las Ciencias de la Salud</h3>
+                <div class="bio-box">
+                    <strong>¿Por qué son importantes las reacciones químicas en salud?</strong><br>
+                    Cada proceso vital es una reacción química:
+                    <ul style="margin-top:0.8rem;">
+                        <li>• La <strong>digestión</strong> degrada los alimentos mediante reacciones enzimáticas.</li>
+                        <li>• El <strong>metabolismo</strong> produce energía (ATP) a través de reacciones redox.</li>
+                        <li>• Los <strong>fármacos</strong> actúan modificando la velocidad de reacciones enzimáticas.</li>
+                        <li>• El <strong>diagnóstico</strong> utiliza reacciones químicas (ej. glucosa en sangre).</li>
+                        <li>• La <strong>descomposición</strong> de tejidos y la corrosión de implantes son reacciones que debemos controlar.</li>
+                    </ul>
+                </div>
+                <div class="img-container">
+                    <!-- IMAGEN: reacciones-salud.png → metabolismo, digestión, fármacos, diagnóstico -->
+                    <img src="reacciones-salud.png" alt="Reacciones químicas en salud" style="max-width:600px;">
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CONCEPTOS ==================== -->
+        <section id="conceptos" class="section">
+            <div class="card">
+                <h2>📚 Conceptos Fundamentales</h2>
+                <div id="conceptos-tabs" class="tab-group">
+                    <div class="tabs">
+                        <button class="tab active" onclick="showTab('conceptos-tabs','sub-definicion',this)">🧪 Reacciones</button>
+                        <button class="tab" onclick="showTab('conceptos-tabs','sub-condiciones',this)">⚡ Condiciones</button>
+                        <button class="tab" onclick="showTab('conceptos-tabs','sub-ecuaciones',this)">📝 Ecuaciones</button>
+                        <button class="tab" onclick="showTab('conceptos-tabs','sub-balanceo',this)">⚖️ Balanceo</button>
+                        <button class="tab" onclick="showTab('conceptos-tabs','sub-velocidad',this)">⏱️ Velocidad</button>
+                        <button class="tab" onclick="showTab('conceptos-tabs','sub-factores',this)">📊 Factores</button>
+                    </div>
+
+                    <!-- Definición de reacción -->
+                    <div id="sub-definicion" class="tab-content active">
+                        <h3>¿Qué es una reacción química?</h3>
+                        <p>Es un proceso en el que <strong>una o más sustancias (reactantes)</strong> se transforman en <strong>nuevas sustancias (productos)</strong> mediante la ruptura y formación de enlaces químicos.</p>
+                        <div class="tip-box">
+                            <strong>Ejemplo en el cuerpo:</strong> La glucosa (C₆H₁₂O₆) reacciona con oxígeno para producir CO₂, H₂O y energía (respiración celular).
+                        </div>
+                        <div class="img-container">
+                            <!-- IMAGEN: reaccion-definicion.png → esquema reactantes → productos -->
+                            <img src="reaccion-definicion.png" alt="Definición de reacción química" style="max-width:400px;">
+                        </div>
+                        <p><strong>Evidencias de una reacción química:</strong></p>
+                        <ul>
+                            <li>• Cambio de color permanente.</li>
+                            <li>• Formación de gas (efervescencia).</li>
+                            <li>• Formación de un sólido (precipitado).</li>
+                            <li>• Transferencia de calor (exotérmica o endotérmica).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Condiciones para que ocurra -->
+                    <div id="sub-condiciones" class="tab-content">
+                        <h3>Condiciones necesarias para una reacción</h3>
+                        <p>Para que una reacción ocurra, los reactantes deben <strong>colisionar eficazmente</strong>. Esto requiere:</p>
+                        <ul>
+                            <li><strong>Colisiones:</strong> Las moléculas deben estar lo suficientemente cerca para interactuar.</li>
+                            <li><strong>Energía suficiente:</strong> Deben alcanzar la <strong>energía de activación</strong> (Ea) para romper enlaces.</li>
+                            <li><strong>Orientación adecuada:</strong> Las zonas reactivas de las moléculas deben alinearse correctamente.</li>
+                        </ul>
+                        <div class="info-box">
+                            <strong>Energía de activación:</strong> Es la energía mínima que deben tener los reactantes para transformarse en productos. <br>
+                            <em>Un catalizador disminuye la Ea y acelera la reacción sin consumirse.</em>
+                        </div>
+                        <div class="img-container">
+                            <!-- IMAGEN: energia-activacion.png → gráfico de perfil de reacción -->
+                            <img src="energia-activacion.png" alt="Perfil de energía de activación" style="max-width:500px;">
+                        </div>
+                    </div>
+
+                    <!-- Ecuaciones químicas -->
+                    <div id="sub-ecuaciones" class="tab-content">
+                        <h3>Ecuaciones químicas</h3>
+                        <p>Representación simbólica de una reacción. <strong>Reactantes → Productos</strong>. Incluye estados físicos (s, l, g, ac) y coeficientes estequiométricos.</p>
+                        <div class="problem-box">
+                            <strong>Ejemplo:</strong> 2 H₂ (g) + O₂ (g) → 2 H₂O (l) <br>
+                            <em>2 moléculas de hidrógeno reaccionan con 1 de oxígeno para formar 2 de agua.</em>
+                        </div>
+                        <p><strong>Ley de conservación de la masa:</strong> Los átomos no se crean ni se destruyen, solo se reorganizan. La ecuación debe estar <strong>balanceada</strong>.</p>
+                    </div>
+
+                    <!-- Balanceo -->
+                    <div id="sub-balanceo" class="tab-content">
+                        <h3>Balanceo de ecuaciones (método del tanteo)</h3>
+                        <p>Se colocan coeficientes delante de cada sustancia hasta igualar el número de átomos de cada elemento en ambos lados.</p>
+                        <div class="info-box">
+                            <strong>Pautas:</strong>
+                            <ol>
+                                <li>Balancear el metal que menos se repite.</li>
+                                <li>Balancear no metales (distintos de H y O).</li>
+                                <li>Balancear H y O al final.</li>
+                                <li>Dejar para el final el elemento que aparece solo.</li>
+                            </ol>
+                        </div>
+                        <div class="problem-box">
+                            <strong>Ejemplo:</strong> K + H₂O → KOH + H₂ <br>
+                            Paso 1: 2 K + 2 H₂O → 2 KOH + H₂ (balanceada)
+                        </div>
+                        <p>Practica con ejercicios de la clase.</p>
+                    </div>
+
+                    <!-- Velocidad de reacción -->
+                    <div id="sub-velocidad" class="tab-content">
+                        <h3>Velocidad de reacción</h3>
+                        <p>Mide <strong>qué tan rápido</strong> se consumen los reactantes o se forman los productos. Se expresa en mol/L·s (M/s).</p>
+                        <div class="bio-box">
+                            <strong>Ejemplos en salud:</strong>
+                            <ul>
+                                <li>La digestión de los alimentos puede tardar horas.</li>
+                                <li>La corrosión de un implante metálico puede durar años.</li>
+                                <li>Las reacciones enzimáticas son muy rápidas (milisegundos).</li>
+                            </ul>
+                        </div>
+                        <p><strong>Velocidad media:</strong> Variación de concentración en un intervalo de tiempo.</p>
+                        <div class="tip-box">
+                            Para la reacción A → B: <br>
+                            V<sub>A</sub> = - (Δ[A] / Δt) &nbsp; (desaparición de A) <br>
+                            V<sub>B</sub> = + (Δ[B] / Δt) &nbsp; (aparición de B)
+                        </div>
+                    </div>
+
+                    <!-- Factores que afectan la velocidad -->
+                    <div id="sub-factores" class="tab-content">
+                        <h3>Factores que afectan la velocidad</h3>
+                        <div class="table-responsive">
+                            <table>
+                                <tr><th>Factor</th><th>Efecto</th><th>Ejemplo en salud</th></tr>
+                                <tr><td><strong>Naturaleza de reactantes</strong></td><td>Reacciones iónicas son más rápidas que moleculares.</td><td>Los iones en soluciones fisiológicas reaccionan rápido.</td></tr>
+                                <tr><td><strong>Estado físico</strong></td><td>Gases y soluciones reaccionan más rápido que sólidos.</td><td>Los fármacos en solución actúan más rápido.</td></tr>
+                                <tr><td><strong>Concentración</strong></td><td>A mayor concentración, mayor velocidad (más colisiones).</td><td>Medicamentos con mayor concentración tienen efecto más rápido.</td></tr>
+                                <tr><td><strong>Temperatura</strong></td><td>Al aumentar la T, aumenta la energía cinética y la velocidad.</td><td>La fiebre puede acelerar reacciones metabólicas.</td></tr>
+                                <tr><td><strong>Presión</strong></td><td>Afecta a gases: a mayor presión, mayor velocidad.</td><td>En ventilación mecánica, la presión afecta el intercambio gaseoso.</td></tr>
+                                <tr><td><strong>Catalizadores</strong></td><td>Disminuyen la energía de activación y aumentan la velocidad.</td><td>Las enzimas son catalizadores biológicos (ej. amilasa, lactasa).</td></tr>
+                            </table>
+                        </div>
+                        <div class="pharma-box">
+                            <strong>Importancia en la industria farmacéutica:</strong> Los catalizadores se usan para sintetizar medicamentos más rápido y con menos energía.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== MAPA CONCEPTUAL ==================== -->
+        <section id="mapa" class="section">
+            <div class="card">
+                <h2>🗺️ Mapa Conceptual Interactivo</h2>
+                <p style="margin-bottom:1rem;">Haz <strong>clic</strong> en cada nodo para desplegar u ocultar sus ramas.</p>
+                <div class="map-container">
+                    <ul class="map-tree">
+                        <li class="has-children">
+                            <div class="map-node root" onclick="toggleMap(this)">⚗️ Reacciones químicas</div>
+                            <ul>
+                                <li class="has-children">
+                                    <div class="map-node branch" onclick="toggleMap(this)">Condiciones</div>
+                                    <ul>
+                                        <li><span class="map-leaf">Colisiones efectivas</span></li>
+                                        <li><span class="map-leaf">Energía de activación</span></li>
+                                        <li><span class="map-leaf">Orientación adecuada</span></li>
+                                    </ul>
+                                </li>
+                                <li class="has-children">
+                                    <div class="map-node branch" onclick="toggleMap(this)">Ecuaciones y balanceo</div>
+                                    <ul>
+                                        <li><span class="map-leaf">Conservación de la masa</span></li>
+                                        <li><span class="map-leaf">Método del tanteo</span></li>
+                                    </ul>
+                                </li>
+                                <li class="has-children">
+                                    <div class="map-node branch" onclick="toggleMap(this)">Velocidad de reacción</div>
+                                    <ul>
+                                        <li><span class="map-leaf">Concepto y unidades</span></li>
+                                        <li><span class="map-leaf">Factores: concentración, T°, catalizadores</span></li>
+                                    </ul>
+                                </li>
+                                <li class="has-children">
+                                    <div class="map-node branch" onclick="toggleMap(this)">Clasificación</div>
+                                    <ul>
+                                        <li><span class="map-leaf">Síntesis, descomposición, desplazamiento</span></li>
+                                        <li><span class="map-leaf">RedOx, exotérmica, endotérmica</span></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== FLASHCARDS ==================== -->
+        <section id="flashcards" class="section">
+            <div class="card">
+                <h2>🃏 Flashcards de Estudio</h2>
+                <p>Haz <strong>clic</strong> en la tarjeta para voltearla y ver la respuesta. Luego califícate con honestidad.</p>
+
+                <div class="fc-stats">
+                    <span class="fc-stat good">✅ Buenas: <span id="fc-good">0</span></span>
+                    <span class="fc-stat bad">❌ Malas: <span id="fc-bad">0</span></span>
+                    <span class="fc-stat pending">⏳ Pendientes: <span id="fc-left">0</span></span>
+                    <span class="fc-stat total">📈 Historial: <span id="fc-hist">0 ✓ / 0 ✗</span></span>
+                </div>
+                <div class="fc-progress"><div class="fc-progress-bar" id="fc-bar"></div></div>
+
+                <div class="flashcard-scene" id="fc-scene">
+                    <div class="flashcard" id="fc-card" onclick="flipCard()">
+                        <div class="fc-face fc-front">
+                            <div class="fc-label">PREGUNTA</div>
+                            <div id="fc-question"></div>
+                            <span class="fc-hint">Clic para voltear ✨</span>
+                        </div>
+                        <div class="fc-face fc-back">
+                            <div class="fc-label">RESPUESTA</div>
+                            <div id="fc-answer"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fc-controls" id="fc-controls">
+                    <button class="fc-btn good" id="btn-fc-good" onclick="gradeCard(true)" disabled>✅ La sabía</button>
+                    <button class="fc-btn bad" id="btn-fc-bad" onclick="gradeCard(false)" disabled>❌ No la sabía</button>
+                </div>
+
+                <div id="fc-summary" class="calc-result" style="max-width:720px;margin:1rem auto;"></div>
+                <div style="text-align:center;">
+                    <button class="calc-button" onclick="resetFlashcards()">🔄 Reiniciar Flashcards</button><br>
+                    <button class="fc-link" onclick="borrarHistorial()">Borrar historial acumulado</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== HERRAMIENTAS ==================== -->
+        <section id="herramientas" class="section">
+            <div class="card">
+                <h2>🧮 Herramientas Interactivas</h2>
+                <div id="herramientas-tabs" class="tab-group">
+                    <div class="tabs">
+                        <button class="tab active" onclick="showTab('herramientas-tabs','calc-balanceo',this)">⚖️ Balanceo (tanteo)</button>
+                        <button class="tab" onclick="showTab('herramientas-tabs','calc-velocidad',this)">⏱️ Velocidad media</button>
+                    </div>
+
+                    <!-- Balanceo -->
+                    <div id="calc-balanceo" class="tab-content active">
+                        <div class="calculator">
+                            <div class="calc-title">⚖️ Verificador de balanceo (tanteo)</div>
+                            <p>Ingresa una ecuación química (ej. "K + H2O -> KOH + H2") y presiona "Verificar". <br>
+                            <small>Escribe con espacios entre sustancias y usa -> para la flecha.</small></p>
+                            <div class="calc-input-group">
+                                <label>Ecuación química:</label>
+                                <input type="text" id="ecuacion-input" value="K + H2O -> KOH + H2" style="width:100%;padding:0.8rem;">
+                            </div>
+                            <button class="calc-button" onclick="verificarBalanceo()">Verificar</button>
+                            <div id="resultado-balanceo" class="calc-result"></div>
+                        </div>
+                    </div>
+
+                    <!-- Velocidad media -->
+                    <div id="calc-velocidad" class="tab-content">
+                        <div class="calculator">
+                            <div class="calc-title">⏱️ Calculadora de velocidad media</div>
+                            <p>Para la reacción A → B, ingresa la concentración inicial y final de A (mol/L) y el tiempo (s).</p>
+                            <div class="calc-input-group">
+                                <label>Concentración inicial de A [A]<sub>0</sub> (mol/L):</label>
+                                <input type="number" id="A0" value="1.0" step="0.01">
+                            </div>
+                            <div class="calc-input-group">
+                                <label>Concentración final de A [A]<sub>f</sub> (mol/L):</label>
+                                <input type="number" id="Af" value="0.3" step="0.01">
+                            </div>
+                            <div class="calc-input-group">
+                                <label>Intervalo de tiempo Δt (s):</label>
+                                <input type="number" id="dt" value="40" step="1">
+                            </div>
+                            <button class="calc-button" onclick="calcularVelocidadMedia()">Calcular</button>
+                            <div id="resultado-velocidad" class="calc-result"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== APLICACIONES EN SALUD ==================== -->
+        <section id="aplicaciones" class="section">
+            <div class="card">
+                <h2>🏥 Aplicaciones en Ciencias de la Salud</h2>
+                <p>Las reacciones químicas y su velocidad son fundamentales en la práctica clínica. Aquí tienes ejemplos concretos y sencillos:</p>
+
+                <div class="img-grid">
+                    <!-- IMAGEN: metabolismo.png → esquema de metabolismo -->
+                    <figure>
+                        <img src="metabolismo.png" alt="Metabolismo celular">
+                        <figcaption>Metabolismo: reacciones que producen energía</figcaption>
+                    </figure>
+                    <!-- IMAGEN: enzimas.png → acción enzimática -->
+                    <figure>
+                        <img src="enzimas.png" alt="Enzimas como catalizadores">
+                        <figcaption>Enzimas: catalizadores biológicos</figcaption>
+                    </figure>
+                    <!-- IMAGEN: farmacos.png → fármacos y reacciones -->
+                    <figure>
+                        <img src="farmacos.png" alt="Fármacos y reacciones">
+                        <figcaption>Los fármacos modifican la velocidad de reacciones</figcaption>
+                    </figure>
+                </div>
+
+                <h3>💊 Digestión y metabolismo</h3>
+                <div class="bio-box">
+                    <ul>
+                        <li><strong>Digestión:</strong> Las enzimas (amilasa, pepsina) aceleran la hidrólisis de alimentos. Son catalizadores biológicos.</li>
+                        <li><strong>Respiración celular:</strong> La glucosa + O₂ → CO₂ + H₂O + ATP (energía). Esta reacción es exotérmica y ocurre en las mitocondrias.</li>
+                        <li><strong>Metabolismo de fármacos:</strong> El hígado usa enzimas (CYP450) para transformar medicamentos, modificando su velocidad de eliminación.</li>
+                    </ul>
+                </div>
+
+                <h3>🧪 Diagnóstico clínico</h3>
+                <div class="pharma-box">
+                    <ul>
+                        <li><strong>Medición de glucosa:</strong> La glucosa oxidasa cataliza la reacción glucosa + O₂ → ácido glucónico + H₂O₂. La velocidad de formación de H₂O₂ se mide para cuantificar glucosa.</li>
+                        <li><strong>Pruebas de función hepática:</strong> Se miden las velocidades de reacciones enzimáticas (ej. ALT, AST) para detectar daño hepático.</li>
+                        <li><strong>Gasometría:</strong> La velocidad de intercambio de gases (O₂ y CO₂) en los pulmones depende de la concentración y la presión.</li>
+                    </ul>
+                </div>
+
+                <h3>🩺 Tratamientos y terapias</h3>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Antibióticos:</strong> Algunos antibióticos inhiben enzimas bacterianas (catalizadores) para frenar reacciones vitales de las bacterias.</li>
+                        <li><strong>Quimioterapia:</strong> Fármacos que alteran la velocidad de replicación del ADN en células cancerosas.</li>
+                        <li><strong>Suplementos enzimáticos:</strong> Se administran enzimas (ej. lactasa para intolerancia a la lactosa) para acelerar la digestión de ciertos nutrientes.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== MNEMOTECNIAS ==================== -->
+        <section id="mnemotecnias" class="section">
+            <div class="card">
+                <h2>🧠 Nemotecnias y Reglas Mnemotécnicas</h2>
+
+                <div class="mnemonic-card" style="background:linear-gradient(135deg,#f0f8ff 0%,#d4edda 100%);border:3px solid var(--eq-gold);border-radius:12px;padding:1.5rem;margin:1rem 0;">
+                    <div style="color:var(--eq-blue);font-weight:700;font-size:1.2rem;">🔥 "Para reaccionar, las moléculas deben chocar con energía y orientación"</div>
+                    <p>Recuerda las tres condiciones: <strong>colisiones</strong>, <strong>energía de activación</strong> y <strong>orientación</strong>.</p>
+                </div>
+
+                <div class="mnemonic-card" style="background:linear-gradient(135deg,#fff5f5 0%,#ffe0e0 100%);border:3px solid var(--accent);border-radius:12px;padding:1.5rem;margin:1rem 0;">
+                    <div style="color:var(--accent);font-weight:700;font-size:1.2rem;">⚡ "Velocidad = más concentración, más temperatura, más catalizador"</div>
+                    <p>Los factores que aumentan la velocidad: concentración, temperatura, catalizadores (y presión para gases).</p>
+                </div>
+
+                <div class="mnemonic-card" style="background:linear-gradient(135deg,#f0f8ff 0%,#d4edda 100%);border:3px solid var(--eq-gold);border-radius:12px;padding:1.5rem;margin:1rem 0;">
+                    <div style="color:var(--eq-blue);font-weight:700;font-size:1.2rem;">📝 "Balanceo: metal, no metal, H y O, y el solito"</div>
+                    <p>Orden para balancear por tanteo: primero metales, luego no metales (excepto H y O), luego H y O, y al final el elemento que aparece solo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== GLOSARIO ==================== -->
+        <section id="glosario" class="section">
+            <div class="card">
+                <h2>📖 Glosario Interactivo</h2>
+                <p style="margin-bottom:1.5rem;">Haz clic en cada término para ver su definición:</p>
+
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Reacción química</strong><div class="glossary-definition">Proceso donde los reactantes se transforman en productos mediante ruptura y formación de enlaces.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Energía de activación</strong><div class="glossary-definition">Energía mínima necesaria para que ocurra una reacción.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Catalizador</strong><div class="glossary-definition">Sustancia que acelera una reacción disminuyendo la energía de activación, sin consumirse.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Velocidad de reacción</strong><div class="glossary-definition">Cambio en la concentración de reactantes o productos por unidad de tiempo.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Ecuación balanceada</strong><div class="glossary-definition">Ecuación química con el mismo número de átomos de cada elemento en reactantes y productos.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Reacción exotérmica</strong><div class="glossary-definition">Reacción que libera calor (ΔH negativo).</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Reacción endotérmica</strong><div class="glossary-definition">Reacción que absorbe calor (ΔH positivo).</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>RedOx</strong><div class="glossary-definition">Reacción de oxidación-reducción donde hay transferencia de electrones.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Enzima</strong><div class="glossary-definition">Catalizador biológico (proteína) que acelera reacciones en los seres vivos.</div></div>
+            </div>
+        </section>
+
+        <!-- ==================== ERRORES COMUNES ==================== -->
+        <section id="errores" class="section">
+            <div class="card">
+                <h2>⚠️ Errores Comunes de Estudiantes</h2>
+
+                <div class="error-card">
+                    <div class="error-title">❌ Error 1: Pensar que todas las colisiones son efectivas</div>
+                    <p><strong>Error:</strong> Cualquier choque entre moléculas produce una reacción.</p>
+                    <div class="correction"><strong>✓ Corrección:</strong> Solo las colisiones con energía suficiente y orientación adecuada son efectivas.</div>
+                </div>
+
+                <div class="error-card">
+                    <div class="error-title">❌ Error 2: Confundir catalizador con reactante</div>
+                    <p><strong>Error:</strong> Creer que el catalizador se consume en la reacción.</p>
+                    <div class="correction"><strong>✓ Corrección:</strong> El catalizador no se consume, solo disminuye la energía de activación.</div>
+                </div>
+
+                <div class="error-card">
+                    <div class="error-title">❌ Error 3: Olvidar que la temperatura afecta la velocidad</div>
+                    <p><strong>Error:</strong> Pensar que la velocidad es independiente de la temperatura.</p>
+                    <div class="correction"><strong>✓ Corrección:</strong> Al aumentar la temperatura, aumenta la energía cinética y la frecuencia de colisiones efectivas.</div>
+                </div>
+
+                <div class="error-card">
+                    <div class="error-title">❌ Error 4: No balancear correctamente</div>
+                    <p><strong>Error:</strong> Cambiar subíndices en lugar de coeficientes para balancear.</p>
+                    <div class="correction"><strong>✓ Corrección:</strong> Solo se pueden agregar coeficientes delante de las fórmulas, nunca cambiar subíndices.</div>
+                </div>
+
+                <div class="error-card">
+                    <div class="error-title">❌ Error 5: No relacionar las reacciones con la salud</div>
+                    <p><strong>Error:</strong> Ver las reacciones como algo abstracto y no aplicarlo a procesos clínicos.</p>
+                    <div class="correction"><strong>✓ Corrección:</strong> Relaciona cada concepto con la digestión, metabolismo, fármacos, etc.</div>
+                </div>
+
+                <div class="tip-box" style="margin-top:2rem;">
+                    <strong>💡 Consejo:</strong> Practica el balanceo con ecuaciones de reacciones que ocurren en el cuerpo (ej. respiración celular, digestión).
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== BIBLIOGRAFÍA ==================== -->
+        <section id="bibliografia" class="section">
+            <div class="card">
+                <h2>📚 Bibliografía Universitaria</h2>
+
+                <h3>Libros de Química General</h3>
+                <div class="info-box">
+                    <strong>1. Chang, R., & Goldsby, K. A. (2017).</strong> <em>Química</em> (12ª ed.). McGraw-Hill.<br>
+                    • <strong>Capítulo 4:</strong> Reacciones en disolución acuosa.<br>
+                    • <strong>Capítulo 13:</strong> Cinética química (velocidad de reacción).
+                </div>
+                <div class="info-box">
+                    <strong>2. Brown, T. L., LeMay, H. E., Bursten, B. E., & Murphy, C. J. (2018).</strong> <em>Química: La Ciencia Central</em> (13ª ed.). Pearson.<br>
+                    • <strong>Capítulo 3:</strong> Estequiometría.<br>
+                    • <strong>Capítulo 14:</strong> Cinética química.
+                </div>
+                <div class="info-box">
+                    <strong>3. Petrucci, R. H., Herring, F. G., Madura, J. D., & Bissonnette, C. (2017).</strong> <em>Química General: Principios y Aplicaciones Modernas</em> (11ª ed.). Pearson.<br>
+                    • <strong>Capítulo 4:</strong> Reacciones químicas.<br>
+                    • <strong>Capítulo 15:</strong> Cinética química.
+                </div>
+
+                <h3>Recursos en Línea</h3>
+                <div class="bio-box">
+                    <strong>Simulador de reacciones (PhET):</strong> <a href="https://phet.colorado.edu/sims/html/reactions-and-rates/latest/reactions-and-rates_es.html" target="_blank" style="color:var(--eq-blue);">PhET - Reacciones y velocidades</a><br>
+                    <strong>Videos de cinética (Khan Academy):</strong> <a href="https://es.khanacademy.org/science/chemistry/chem-kinetics" target="_blank" style="color:var(--eq-blue);">https://es.khanacademy.org</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== QUIZ ==================== -->
+        <section id="quiz" class="section">
+            <div class="card">
+                <h2>🎯 Quiz de Autoevaluación</h2>
+                <p>Se mostrarán <strong>10 preguntas al azar</strong> de un total de 30. Al finalizar, podrás cargar una nueva ronda.</p>
+                <div id="quiz-container"></div>
+                <div style="text-align:center;margin-top:2rem;">
+                    <button class="calc-button" onclick="cargarQuiz()">🔄 Nueva ronda</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p style="font-size:1.2rem;margin-bottom:0.5rem;">🎓 Universidad Peruana Cayetano Heredia</p>
+        <p>Unidad de Formación Básica Integral · Curso: Elementos de Química</p>
+        <p style="margin-top:0.5rem;font-style:italic;">"La química es el puente entre la materia y la vida"</p>
+        <p style="margin-top:2rem;font-size:0.9rem;">© 2026 · Material educativo para estudiantes de ciencias de la salud</p>
+    </footer>
+
+    <script>
+        // ============================================================
+        //  NAVEGACIÓN
+        // ============================================================
+        function showSection(sectionId, btn) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showTab(groupId, tabId, btn) {
+            const group = document.getElementById(groupId);
+            group.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            group.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (btn) btn.classList.add('active');
+        }
+
+        // ============================================================
+        //  MAPA CONCEPTUAL
+        // ============================================================
+        function toggleMap(node) {
+            node.parentElement.classList.toggle('open');
+        }
+
+        // ============================================================
+        //  GLOSARIO
+        // ============================================================
+        function toggleDefinition(el) {
+            const def = el.querySelector('.glossary-definition');
+            def.classList.toggle('show');
+            el.style.background = def.classList.contains('show') ? '#fff9e6' : 'var(--white)';
+        }
+
+        // ============================================================
+        //  FLASHCARDS (20 tarjetas sobre reacciones y velocidad)
+        // ============================================================
+        const flashcards = [
+            { q: '¿Qué es una reacción química?', a: 'Proceso en el que reactantes se transforman en productos mediante ruptura y formación de enlaces.' },
+            { q: '¿Cuáles son las tres condiciones para que ocurra una reacción?', a: 'Colisiones, energía de activación y orientación adecuada.' },
+            { q: '¿Qué es la energía de activación?', a: 'Energía mínima que deben tener los reactantes para reaccionar.' },
+            { q: '¿Qué hace un catalizador?', a: 'Disminuye la energía de activación y acelera la reacción sin consumirse.' },
+            { q: '¿Qué es una enzima?', a: 'Catalizador biológico (proteína) que acelera reacciones en los seres vivos.' },
+            { q: '¿Qué es la velocidad de reacción?', a: 'Cambio en la concentración de reactantes o productos por unidad de tiempo.' },
+            { q: '¿Cómo afecta la concentración a la velocidad?', a: 'A mayor concentración, mayor velocidad (más colisiones).' },
+            { q: '¿Cómo afecta la temperatura a la velocidad?', a: 'A mayor temperatura, mayor velocidad (más energía cinética).' },
+            { q: '¿Cómo afecta un catalizador a la velocidad?', a: 'La aumenta, ya que disminuye la energía de activación.' },
+            { q: '¿Qué es una ecuación balanceada?', a: 'Tiene el mismo número de átomos de cada elemento en ambos lados.' },
+            { q: 'Método de balanceo más sencillo:', a: 'Método del tanteo (por inspección).' },
+            { q: '¿Qué es una reacción exotérmica?', a: 'Libera calor (ΔH negativo).' },
+            { q: '¿Qué es una reacción endotérmica?', a: 'Absorbe calor (ΔH positivo).' },
+            { q: '¿Qué es una reacción RedOx?', a: 'Reacción de oxidación-reducción con transferencia de electrones.' },
+            { q: 'Ejemplo de reacción en el cuerpo:', a: 'Respiración celular: C₆H₁₂O₆ + O₂ → CO₂ + H₂O + energía.' },
+            { q: '¿Qué factor NO afecta la velocidad de reacción?', a: 'El color de los reactantes (no afecta).' },
+            { q: '¿Qué es una colisión efectiva?', a: 'Choque con energía suficiente y orientación adecuada.' },
+            { q: '¿Qué ocurre con la velocidad si se añade un catalizador?', a: 'Aumenta (disminuye la energía de activación).' },
+            { q: '¿Qué pasa con la velocidad si se aumenta la presión en una reacción gaseosa?', a: 'Aumenta (más colisiones).' },
+            { q: '¿Qué es la ley de conservación de la masa?', a: 'Los átomos no se crean ni destruyen en una reacción.' }
+        ];
+
+        let fcIndex = 0,
+            fcFlipped = false,
+            fcGood = 0,
+            fcBad = 0,
+            fcDone = false;
+
+        function fcUpdateStats() {
+            document.getElementById('fc-good').textContent = fcGood;
+            document.getElementById('fc-bad').textContent = fcBad;
+            document.getElementById('fc-left').textContent = Math.max(0, flashcards.length - fcIndex);
+            const tg = parseInt(localStorage.getItem('fcTotalGood') || '0', 10);
+            const tb = parseInt(localStorage.getItem('fcTotalBad') || '0', 10);
+            document.getElementById('fc-hist').textContent = tg + ' ✓ / ' + tb + ' ✗';
+            document.getElementById('fc-bar').style.width = (fcIndex / flashcards.length * 100) + '%';
+        }
+
+        function fcRenderCard() {
+            const card = document.getElementById('fc-card');
+            card.classList.remove('flipped');
+            fcFlipped = false;
+            document.getElementById('fc-question').textContent = flashcards[fcIndex].q;
+            document.getElementById('fc-answer').textContent = flashcards[fcIndex].a;
+            document.getElementById('btn-fc-good').disabled = true;
+            document.getElementById('btn-fc-bad').disabled = true;
+            fcUpdateStats();
+        }
+
+        function flipCard() {
+            if (fcDone) return;
+            const card = document.getElementById('fc-card');
+            card.classList.toggle('flipped');
+            fcFlipped = card.classList.contains('flipped');
+            document.getElementById('btn-fc-good').disabled = !fcFlipped;
+            document.getElementById('btn-fc-bad').disabled = !fcFlipped;
+        }
+
+        function gradeCard(wasGood) {
+            if (!fcFlipped || fcDone) return;
+            if (wasGood) {
+                fcGood++;
+                localStorage.setItem('fcTotalGood', String(parseInt(localStorage.getItem('fcTotalGood') || '0', 10) + 1));
+            } else {
+                fcBad++;
+                localStorage.setItem('fcTotalBad', String(parseInt(localStorage.getItem('fcTotalBad') || '0', 10) + 1));
+            }
+            fcIndex++;
+            if (fcIndex < flashcards.length) {
+                fcRenderCard();
+            } else {
+                fcFinish();
+            }
+        }
+
+        function fcFinish() {
+            fcDone = true;
+            document.getElementById('fc-scene').style.display = 'none';
+            document.getElementById('fc-controls').style.display = 'none';
+            const total = fcGood + fcBad;
+            const pct = Math.round(fcGood / total * 100);
+            let msg = pct >= 80 ? ' ¡Excelente! Dominas el tema.' : (pct >= 60 ? '💪 ¡Bien! Repasa las que fallaste.' :
+                '📚 Necesitas repasar: vuelve a la pestaña Conceptos.');
+            const sum = document.getElementById('fc-summary');
+            sum.innerHTML = '<strong>📊 Resumen de la sesión:</strong><br>✅ Buenas: ' + fcGood + ' &nbsp; ❌ Malas: ' + fcBad +
+                '<br>Precisión: <strong>' + pct + '%</strong><br>' + msg;
+            sum.classList.add('show');
+            fcUpdateStats();
+        }
+
+        function resetFlashcards() {
+            fcIndex = 0;
+            fcGood = 0;
+            fcBad = 0;
+            fcDone = false;
+            document.getElementById('fc-scene').style.display = 'block';
+            document.getElementById('fc-controls').style.display = 'flex';
+            document.getElementById('fc-summary').classList.remove('show');
+            fcRenderCard();
+        }
+
+        function borrarHistorial() {
+            localStorage.removeItem('fcTotalGood');
+            localStorage.removeItem('fcTotalBad');
+            fcUpdateStats();
+        }
+
+        // ============================================================
+        //  HERRAMIENTAS: Verificador de balanceo (simplificado)
+        // ============================================================
+        function verificarBalanceo() {
+            const input = document.getElementById('ecuacion-input').value;
+            const div = document.getElementById('resultado-balanceo');
+            // Limpieza simple: eliminar espacios extra
+            const eq = input.replace(/\s+/g, ' ').trim();
+            // Dividir en reactantes y productos
+            const partes = eq.split('->');
+            if (partes.length !== 2) {
+                div.innerHTML = '❌ Formato incorrecto. Usa "->" para separar reactantes y productos.';
+                div.classList.add('show');
+                return;
+            }
+            const reactantes = partes[0].trim().split('+').map(s => s.trim());
+            const productos = partes[1].trim().split('+').map(s => s.trim());
+
+            // Función para contar átomos en una fórmula (muy básica, solo para ejemplo)
+            function contarAtomos(formula) {
+                const atomos = {};
+                // Regex para capturar elementos y números (ej. H2O, KOH, Fe2O3)
+                const regex = /([A-Z][a-z]?)(\d*)/g;
+                let match;
+                while ((match = regex.exec(formula)) !== null) {
+                    const elem = match[1];
+                    const num = parseInt(match[2]) || 1;
+                    atomos[elem] = (atomos[elem] || 0) + num;
+                }
+                return atomos;
+            }
+
+            function sumarAtomos(lista) {
+                const total = {};
+                for (const f of lista) {
+                    const a = contarAtomos(f);
+                    for (const [elem, cant] of Object.entries(a)) {
+                        total[elem] = (total[elem] || 0) + cant;
+                    }
+                }
+                return total;
+            }
+
+            const react = sumarAtomos(reactantes);
+            const prod = sumarAtomos(productos);
+
+            let ok = true;
+            let mensaje = '';
+            const todos = new Set([...Object.keys(react), ...Object.keys(prod)]);
+            for (const elem of todos) {
+                const r = react[elem] || 0;
+                const p = prod[elem] || 0;
+                if (r !== p) {
+                    ok = false;
+                    mensaje += `❌ ${elem}: ${r} en reactantes vs ${p} en productos.\n`;
+                }
+            }
+            if (ok) {
+                mensaje = '✅ La ecuación está balanceada. ¡Correcto!';
+                div.style.borderLeftColor = '#28a745';
+            } else {
+                mensaje = '⚠️ No está balanceada:\n' + mensaje;
+                div.style.borderLeftColor = '#dc3545';
+            }
+            div.innerHTML = mensaje.replace(/\n/g, '<br>');
+            div.classList.add('show');
+        }
+
+        // ============================================================
+        //  HERRAMIENTAS: Velocidad media
+        // ============================================================
+        function calcularVelocidadMedia() {
+            const A0 = parseFloat(document.getElementById('A0').value);
+            const Af = parseFloat(document.getElementById('Af').value);
+            const dt = parseFloat(document.getElementById('dt').value);
+            if (isNaN(A0) || isNaN(Af) || isNaN(dt) || dt <= 0) {
+                alert('Ingresa valores numéricos válidos. Δt debe ser > 0.');
+                return;
+            }
+            const v = (A0 - Af) / dt;
+            const div = document.getElementById('resultado-velocidad');
+            div.innerHTML = '<strong>Velocidad media de desaparición de A:</strong> ' + v.toFixed(4) + ' mol/L·s<br>' +
+                '🔹 La concentración de A disminuyó de ' + A0 + ' a ' + Af + ' mol/L en ' + dt + ' s.';
+            div.classList.add('show');
+        }
+
+        // ============================================================
+        //  QUIZ (30 preguntas sobre reacciones y velocidad)
+        // ============================================================
+        const preguntasBase = [
+            { pregunta: '¿Qué es una reacción química?', opciones: ['Cambio físico', 'Transformación de sustancias', 'Mezcla de compuestos', 'Separación de fases'], correcta: 1, explicacion: 'Una reacción química transforma los reactantes en nuevos productos.' },
+            { pregunta: '¿Cuál de las siguientes NO es una condición para una reacción?', opciones: ['Colisiones', 'Energía de activación', 'Orientación adecuada', 'Presencia de agua'], correcta: 3, explicacion: 'El agua no es necesaria para todas las reacciones.' },
+            { pregunta: '¿Qué es la energía de activación?', opciones: ['Energía liberada en la reacción', 'Energía mínima para reaccionar', 'Energía absorbida', 'Energía de los productos'], correcta: 1, explicacion: 'Es la energía mínima que deben tener los reactantes.' },
+            { pregunta: '¿Qué hace un catalizador?', opciones: ['Aumenta la temperatura', 'Disminuye la energía de activación', 'Cambia los productos', 'Se consume en la reacción'], correcta: 1, explicacion: 'El catalizador disminuye la energía de activación y no se consume.' },
+            { pregunta: '¿Qué es una enzima?', opciones: ['Un reactante', 'Un catalizador biológico', 'Un producto', 'Un solvente'], correcta: 1, explicacion: 'Las enzimas son proteínas que actúan como catalizadores en los seres vivos.' },
+            { pregunta: '¿Cómo afecta la concentración a la velocidad?', opciones: ['No afecta', 'A mayor concentración, mayor velocidad', 'A mayor concentración, menor velocidad', 'Solo afecta en gases'], correcta: 1, explicacion: 'Más concentración → más colisiones → mayor velocidad.' },
+            { pregunta: '¿Cómo afecta la temperatura a la velocidad?', opciones: ['No afecta', 'A mayor temperatura, mayor velocidad', 'A mayor temperatura, menor velocidad', 'Solo afecta en líquidos'], correcta: 1, explicacion: 'La temperatura aumenta la energía cinética y la frecuencia de colisiones efectivas.' },
+            { pregunta: '¿Qué es la velocidad de reacción?', opciones: ['Tiempo que tarda en completarse', 'Cambio de concentración por unidad de tiempo', 'Energía liberada', 'Número de productos'], correcta: 1, explicacion: 'La velocidad mide la rapidez con que cambian las concentraciones.' },
+            { pregunta: '¿Qué es una ecuación balanceada?', opciones: ['Tiene los mismos átomos en ambos lados', 'Tiene los mismos coeficientes', 'Tiene los mismos productos', 'Tiene los mismos reactantes'], correcta: 0, explicacion: 'El número de átomos de cada elemento es igual en reactantes y productos.' },
+            { pregunta: 'Método de balanceo más sencillo:', opciones: ['Redox', 'Algebraico', 'Tanteo', 'Ion-electrón'], correcta: 2, explicacion: 'El método del tanteo es el más simple para ecuaciones sencillas.' },
+            { pregunta: '¿Qué es una reacción exotérmica?', opciones: ['Absorbe calor', 'Libera calor', 'No cambia la temperatura', 'Se produce en frío'], correcta: 1, explicacion: 'Libera calor al ambiente (ΔH < 0).' },
+            { pregunta: '¿Qué es una reacción endotérmica?', opciones: ['Libera calor', 'Absorbe calor', 'No cambia la temperatura', 'Se produce en caliente'], correcta: 1, explicacion: 'Absorbe calor del ambiente (ΔH > 0).' },
+            { pregunta: '¿Qué es una reacción RedOx?', opciones: ['Transferencia de protones', 'Transferencia de electrones', 'Transferencia de calor', 'Transferencia de masa'], correcta: 1, explicacion: 'Hay transferencia de electrones entre especies.' },
+            { pregunta: 'Ejemplo de reacción en el cuerpo:', opciones: ['Digestión', 'Fotosíntesis', 'Corrosión', 'Todas las anteriores'], correcta: 3, explicacion: 'Todos son ejemplos de reacciones químicas relevantes para la salud.' },
+            { pregunta: '¿Qué factor NO afecta la velocidad de reacción?', opciones: ['Temperatura', 'Concentración', 'Color', 'Catalizador'], correcta: 2, explicacion: 'El color es una propiedad física, no afecta la velocidad.' },
+            { pregunta: '¿Qué es una colisión efectiva?', opciones: ['Cualquier choque', 'Choque con energía y orientación adecuadas', 'Choque en estado gaseoso', 'Choque en solución'], correcta: 1, explicacion: 'Debe tener energía suficiente y orientación correcta.' },
+            { pregunta: '¿Qué ocurre con la velocidad si se añade un catalizador?', opciones: ['Disminuye', 'Aumenta', 'No cambia', 'Se detiene'], correcta: 1, explicacion: 'El catalizador acelera la reacción.' },
+            { pregunta: '¿Qué pasa con la velocidad si se aumenta la presión en una reacción gaseosa?', opciones: ['Disminuye', 'Aumenta', 'No cambia', 'Se detiene'], correcta: 1, explicacion: 'A mayor presión, mayor concentración de gases y más colisiones.' },
+            { pregunta: '¿Qué dice la ley de conservación de la masa?', opciones: ['La masa se crea', 'La masa se destruye', 'Los átomos se reorganizan', 'La masa varía'], correcta: 2, explicacion: 'Los átomos no se crean ni destruyen, solo se reorganizan.' },
+            { pregunta: 'En la digestión, ¿qué tipo de catalizadores actúan?', opciones: ['Enzimas', 'Ácidos', 'Bases', 'Sales'], correcta: 0, explicacion: 'Las enzimas digestivas (amilasa, pepsina, etc.) son catalizadores biológicos.' },
+            { pregunta: '¿Qué es la respiración celular?', opciones: ['Reacción de síntesis', 'Reacción exotérmica', 'Reacción endotérmica', 'Reacción de desplazamiento'], correcta: 1, explicacion: 'La respiración celular libera energía (exotérmica).' },
+            { pregunta: '¿Qué tipo de reacción es 2H₂ + O₂ → 2H₂O?', opciones: ['Síntesis', 'Descomposición', 'Desplazamiento', 'RedOx'], correcta: 0, explicacion: 'Dos reactantes se combinan para formar un producto (síntesis).' },
+            { pregunta: '¿Qué tipo de reacción es 2HgO → 2Hg + O₂?', opciones: ['Síntesis', 'Descomposición', 'Desplazamiento', 'RedOx'], correcta: 1, explicacion: 'Un compuesto se descompone en dos o más sustancias.' },
+            { pregunta: '¿Qué tipo de reacción es CuSO₄ + Fe → FeSO₄ + Cu?', opciones: ['Síntesis', 'Descomposición', 'Desplazamiento simple', 'Doble desplazamiento'], correcta: 2, explicacion: 'El Fe desplaza al Cu en el compuesto.' },
+            { pregunta: '¿Qué tipo de reacción es HCl + NaOH → NaCl + H₂O?', opciones: ['Síntesis', 'Descomposición', 'Doble desplazamiento', 'RedOx'], correcta: 2, explicacion: 'Es una neutralización (caso especial de doble desplazamiento).' },
+            { pregunta: '¿Qué es la energía de activación en el cuerpo?', opciones: ['La energía de los alimentos', 'La energía que necesitan las enzimas', 'La energía mínima para que ocurra una reacción enzimática', 'La energía liberada'], correcta: 2, explicacion: 'Las enzimas disminuyen la energía de activación, pero esta sigue siendo la barrera energética.' },
+            { pregunta: '¿Cómo afecta un inhibidor enzimático a la velocidad?', opciones: ['La aumenta', 'La disminuye', 'No afecta', 'La detiene completamente'], correcta: 1, explicacion: 'Un inhibidor reduce la actividad de la enzima y, por lo tanto, la velocidad de reacción.' },
+            { pregunta: '¿Qué es un fármaco que actúa como catalizador?', opciones: ['No existe', 'Algunos fármacos imitan a enzimas', 'Todos los fármacos son catalizadores', 'Ninguno'], correcta: 1, explicacion: 'Algunos fármacos actúan como catalizadores o inhibidores enzimáticos.' },
+            { pregunta: 'En la medición de glucosa en sangre, ¿qué se mide?', opciones: ['La concentración de glucosa', 'La velocidad de la reacción enzimática', 'Ambas', 'Ninguna'], correcta: 2, explicacion: 'Se mide la velocidad de la reacción (producción de H₂O₂) para cuantificar la glucosa.' },
+            { pregunta: '¿Qué es un implante metálico y su corrosión?', opciones: ['Reacción de síntesis', 'Reacción de descomposición', 'Reacción RedOx', 'Reacción de neutralización'], correcta: 2, explicacion: 'La corrosión es un proceso RedOx que degrada los metales.' }
+        ];
+
+        let preguntasActuales = [];
+        let quizIndex = 0;
+        let quizAciertos = 0;
+        let quizRespondidas = 0;
+
+        function cargarQuiz() {
+            const shuffled = [...preguntasBase];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            preguntasActuales = shuffled.slice(0, 10);
+            quizIndex = 0;
+            quizAciertos = 0;
+            quizRespondidas = 0;
+            mostrarPregunta();
+        }
+
+        function mostrarPregunta() {
+            const container = document.getElementById('quiz-container');
+            if (quizIndex >= preguntasActuales.length) {
+                const total = preguntasActuales.length;
+                const pct = Math.round(quizAciertos / total * 100);
+                let msg = pct >= 80 ? '🎉 ¡Excelente! Dominas el tema.' : (pct >= 60 ? '💪 ¡Bien, sigue practicando!' :
+                    '📚 Revisa los conceptos y vuelve a intentarlo.');
+                container.innerHTML = `
+                    <div class="quiz-container" style="text-align:center;">
+                        <h3 style="color:var(--eq-gold);">¡Ronda completada!</h3>
+                        <p style="font-size:1.5rem;">✅ ${quizAciertos} de ${total} correctas</p>
+                        <p>Precisión: ${pct}%</p>
+                        <p>${msg}</p>
+                        <button class="calc-button" onclick="cargarQuiz()" style="margin-top:1.5rem;">🔄 Nueva ronda</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const q = preguntasActuales[quizIndex];
+            const opcionesHtml = q.opciones.map((opt, idx) =>
+                `<button class="quiz-option" onclick="responderPregunta(${quizIndex}, ${idx}, this)">${opt}</button>`
+            ).join('');
+
+            container.innerHTML = `
+                <div class="quiz-container">
+                    <div class="quiz-progress">
+                        <span>Pregunta ${quizIndex+1} de ${preguntasActuales.length}</span>
+                        <span>✅ ${quizAciertos} correctas</span>
+                    </div>
+                    <div class="quiz-question">${q.pregunta}</div>
+                    <div class="quiz-options">${opcionesHtml}</div>
+                    <div class="quiz-feedback" id="feedback-actual"></div>
+                </div>
+            `;
+        }
+
+        function responderPregunta(idx, opcionSeleccionada, btn) {
+            const q = preguntasActuales[idx];
+            const fb = document.getElementById('feedback-actual');
+            const opts = btn.parentElement.querySelectorAll('.quiz-option');
+            opts.forEach(o => o.disabled = true);
+
+            const correcta = q.correcta;
+            if (opcionSeleccionada === correcta) {
+                btn.classList.add('correct');
+                quizAciertos++;
+                fb.innerHTML = '<span style="color:#4caf50;font-weight:bold;">✅ ¡Correcto!</span> ' + q.explicacion;
+                fb.style.background = '#e8f5e9';
+            } else {
+                btn.classList.add('incorrect');
+                opts[correcta].classList.add('correct');
+                fb.innerHTML = '<span style="color:#f44336;font-weight:bold;">❌ Incorrecto</span> ' + q.explicacion;
+                fb.style.background = '#ffebee';
+            }
+            fb.style.display = 'block';
+            quizRespondidas++;
+
+            setTimeout(() => {
+                quizIndex++;
+                mostrarPregunta();
+            }, 2000);
+        }
+
+        // ============================================================
+        //  INICIALIZACIÓN
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            fcRenderCard();
+            cargarQuiz();
+            // Mostrar primera subpestaña de herramientas
+            document.querySelector('#herramientas-tabs .tab.active')?.click();
+        });
+
+        console.log('=== IMÁGENES PNG REQUERIDAS PARA LA CLASE 8 ===');
+        console.log('1. Logo-EQ.png                → Logo de EQ');
+        console.log('2. reacciones-salud.png       → Metabolismo, digestión, fármacos, diagnóstico');
+        console.log('3. reaccion-definicion.png    → Esquema reactantes → productos');
+        console.log('4. energia-activacion.png     → Gráfico de perfil de energía de activación');
+        console.log('5. metabolismo.png            → Esquema de metabolismo celular');
+        console.log('6. enzimas.png                → Acción enzimática (catalizador)');
+        console.log('7. farmacos.png               → Fármacos y reacciones químicas');
+        console.log('Coloca estos archivos en la misma carpeta que este HTML.');
+    </script>
+</body>
+</html>
