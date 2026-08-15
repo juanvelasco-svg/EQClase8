@@ -1685,6 +1685,23 @@
         console.log('6. enzimas.png                → Acción enzimática (catalizador)');
         console.log('7. farmacos.png               → Fármacos y reacciones químicas');
         console.log('Coloca estos archivos en la misma carpeta que este HTML.');
+
+        // ============================================================
+        //  AMPLIAR IMÁGENES AL HACER CLIC
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Selecciona todas las imágenes que están dentro de contenedores .img-container
+            // y también las que tengan clase 'molecule-img' (por si están fuera)
+            const imagenes = document.querySelectorAll('.img-container img, .molecule-img');
+            imagenes.forEach(img => {
+                // Cambia el cursor para indicar que es clickeable
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', function(e) {
+                    // Abre la imagen en una nueva pestaña/ventana
+                    window.open(this.src, '_blank');
+                });
+            });
+        });
     </script>
 </body>
 </html>
